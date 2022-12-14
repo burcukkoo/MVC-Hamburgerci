@@ -1,0 +1,149 @@
+﻿@*@using KD12MVCHamburger.Data --> Bu satırın modellerinin buradan geleceğini söyledim bunu burada görmek istemiyorsan ViewImports.cshtml içerisine bu using ifadesini yapıştırabilirsin.*@
+@model Siparis
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div style="background-color:gainsboro;">
+    <hr style="height:.7rem;" />
+    <h1 class="text-center">MVC HAMBURGER</h1>
+    <hr style="height:.7rem;" />
+</div>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-10">
+                <img src="~/img/hamburger.jpg" class="form-control">
+                <hr />
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+
+
+
+        <form asp-controller="Home" asp-action="SiparisEkle" method="post">
+            <div class="row mt-3 mb-3">
+
+                <div class="col-md-1"></div>
+
+                <div class="col-md-3 form-check">
+                    <input asp-for="Boyut" class="form-check-input" type="radio" value="Küçük" checked />
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Küçük
+                    </label>
+                </div>
+
+                <div class="col-md-3 form-check">
+                    <input asp-for="Boyut" class="form-check-input" type="radio" value="Orta" checked />
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Orta
+                    </label>
+                </div>
+
+                <div class="col-md-3 form-check">
+                    <input asp-for="Boyut" class="form-check-input" type="radio" value="Büyük" checked />
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Büyük
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-10">
+                    <hr />
+                    <label style="background-color:gainsboro" class="mb-1 p-1">MENÜ SEÇİN</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-10 mb-2">
+                    <select asp-for="MenuId" class="form-control" asp-items="@(new SelectList(ViewBag.Menuler,"Id","MenuFiyat"))"></select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-10">
+                    <hr />
+                    <label style="background-color:gainsboro" class="mb-1 p-1">MALZEME SEÇİN</label>
+                </div>
+            </div>
+
+            <div class="row">
+                @{
+                    int count = 0;
+                    foreach (Ekstra item in ViewBag.Ekstralar)
+                    {
+                        if (count == 0)
+                        {
+                            <div class="col-md-1"></div>
+
+                        }
+                        <div class="col-md-3 form-check">
+                            <input class="form-check-input" type="checkbox" name="ekstralar" value="@item.EkstraAdı" id="flexCheckDefault" />
+                            <label class="form-check-label" for="flexCheckDefault">
+                                @item.EkstraAdı
+                            </label>
+                        </div>
+
+                        count++;
+                        if (count % 3 == 0)
+                        {
+                            <div class="row"><div class="col-md-1"></div></div>
+
+                        }
+                    }
+                }
+            </div>
+            <div class="row">
+                <div class="col-md-5 mt-4">
+                    <label style="background-color:gainsboro" class="mb-1 p-1">ADET</label>
+                    <input asp-for="Adet" type="number" value="1" />
+                </div>
+
+                <div class="col-md-5 mt-4">
+                    <input style="border:none" type="submit" value="Sipariş Ekle" class="btn btn-primary float-end" />
+                </div>
+            </div>
+            <div class="row">
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Menü</td>
+                    <td>Ekstralar</td>
+                    <td>Boyut</td>
+                    <td>Fiyat</td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.Siparisler.Count > 0)
+                {
+                    @foreach (Siparis item in ViewBag.Siparisler)
+                    {
+                        <tr>
+                            <td>(@item.Adet) x (@item.SecilenMenu.MenuFiyat)</td>
+                            <td>@item.Ekstralar</td>
+                            <td>@item.Boyut</td>
+                            <td>@item.ToplamTutar</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Toplam</td>
+                    <td>@ViewBag.Toplam.ToString("C")</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <a asp-action="SiparisTamamla" asp-controller="Home" class="btn btn-success float-end">Sipariş Tamamla</a>
+    </div>
+</div>

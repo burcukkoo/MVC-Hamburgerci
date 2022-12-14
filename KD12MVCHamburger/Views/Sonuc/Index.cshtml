@@ -1,0 +1,105 @@
+﻿@model List<Siparis>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div style="background-color: gainsboro;">
+	<hr style="height:.7rem;" />
+	<h1 class="text-center">Siparişler</h1>
+	<hr style ="height:.7rem;" />
+</div>
+
+
+<div class="row">
+    <div class="col-lg-3 col-6 text-white">
+
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>@ViewBag.Ciro</h3>
+                <h5>Toplam Ciro</h5>
+            </div>
+            <div class="icon">
+                <i class="fas fa-th-large"></i>
+            </div>
+            <a asp-controller="Categories" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-6 text-white">
+
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>@ViewBag.SiparişAdedi<sup style="font-size: 20px"></sup></h3>
+                <h5>Toplam Sipariş</h5>
+            </div>
+            <div class="icon">
+                <i class="fas fa-file-alt"></i>
+            </div>
+            <a asp-controller="Posts" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-6">
+
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>@ViewBag.Ekstralar</h3>
+                <h5>Satılan Ekstra Malzeme</h5>
+            </div>
+            <div class="icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <a asp-controller="Posts" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-6 text-white">
+
+        <div class="small-box bg-danger">
+            <div class="inner">
+                <h3>@ViewBag.MenuAdedi</h3>
+                <h5>Satılan Menü Adedi</h5>
+            </div>
+            <div class="icon">
+                <i class="fas fa-comment"></i>
+            </div>
+            <a asp-controller="Posts" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Menü</td>
+            <td>Adet</td>
+            <td>Boyut</td>
+            <td>Ekstralar</td>
+            <td>Fiyat</td>
+        </tr>
+    </thead>
+    <tbody>
+        
+            @foreach (Siparis item in Model)
+            {
+                <tr>
+                    <td>@item.SecilenMenu.MenuAd</td>
+                    <td>
+                        @item.Adet
+                    </td>
+                    <td>
+                        @item.Boyut
+                    </td>
+                    <td>
+                        @item.Ekstralar
+                    </td>
+                    <td>@item.ToplamTutar</td>
+                </tr>
+            }
+        
+    </tbody>
+    
+</table>

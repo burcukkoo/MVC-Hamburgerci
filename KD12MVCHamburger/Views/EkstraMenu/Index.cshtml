@@ -1,0 +1,134 @@
+﻿@model MEVM
+
+@{
+    ViewData["Title"] = "MenuEkstraEkleme";
+}
+
+<h3>Menü Ekleme</h3>
+
+
+<form asp-controller="MenuEkstra" asp-action="MenuEkle" method="post">
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">Menü Adı</label>
+                <input type="text" class="form-control" asp-for="MenuAd" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">Fiyatı</label>
+                <input type="text" class="form-control" asp-for="Fiyat" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <br />
+                <input type="submit" value="EKLE" class="btn btn-success" />
+            </div>
+        </div>
+
+
+    </div>
+</form>
+
+<br />
+<hr />
+<br />
+
+<h3>Ekstra Malzeme Ekleme</h3>
+
+
+<form asp-controller="MenuEkstra" asp-action="EkstraEkle" method="post">
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">Ekstra Malzeme Adı</label>
+                <input type="text" class="form-control" asp-for="EkstraAd" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">Fiyatı</label>
+                <input type="text" class="form-control" asp-for="Fiyat" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <br />
+                <input type="submit" value="EKLE" class="btn btn-success" />
+            </div>
+        </div>
+
+
+    </div>
+</form>
+
+<br />
+<h3>Menüler</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Menü Adı
+            </th>
+            <th>
+                Menü Fiyatı
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Menu item in ViewBag.Menuler)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MenuAd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fiyat)
+                </td>
+                <td>
+                    <a class="btn btn-danger btn-sm float-end" asp-action="MenuSil" asp-route-id="@item.Id">Sil</a>
+                    <a class="btn btn-primary btn-sm float-end" asp-action="MenuDuzenle" asp-route-id="@item.Id">Güncelle</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<h3>Ekstralar</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Ekstra Adı
+            </th>
+            <th>
+                Ekstra Fiyatı
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Ekstra item in ViewBag.Ekstralar)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EkstraAdı)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fiyat)
+                </td>
+                <td>
+                    <a class="btn btn-danger btn-sm float-end" asp-action="EkstraSil" asp-route-id="@item.Id">Sil</a>
+                    <a class="btn btn-primary btn-sm float-end" asp-action="EkstraDuzenle" asp-route-id="@item.Id">Güncelle</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
